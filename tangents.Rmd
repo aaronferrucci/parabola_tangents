@@ -1,0 +1,81 @@
+---
+title: "Tangents to Parabola"
+author: "Aaron Ferrucci"
+date: "October 1, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+```
+
+$f(x) = x^2 + 1$
+
+$g(x) = -x^2 - 2x - 1$
+
+$f'(x) = 2x$
+
+$g'(x) = -2x - 2$
+
+$m = f'(x_1) = g'(x_2)$
+
+$m = 2x_1 = -2x_2 - 2$
+
+$x_2 = -x_1 - 1$
+
+$m = \frac{f(x_1) - g(x_2)}{x_1 - x_2}$
+
+$= \frac{x_1^2 + 1 - (-x_2 - 2x_2 - 1)}{x_1 - x_2}$
+
+$= \frac{x_1^2 + 1 - (-(-x_1 - 1)^2 - 2(-x_1 - 1))}{x_1 - (-x_1 - 1)}$
+
+$= \frac{x_1^2 + 1 - (-(x_1^2 +2x_1 + 1) + 2x_1 + 2)}{2x_1 + 1}$
+
+$= \frac{x_1^2 + 1 - (-x_1^2 - 2x_1 - 1 + 2x_1 + 2)}{2x_1 + 1}$
+
+$= \frac{x_1^2 + 1 + x_1^2 + 2x_1 + 1 - 2x_1 - 2}{2x_1 + 1}$
+
+$= \frac{2x_1^2 +1}{2x_1 + 1} = 2x_1$
+
+$=> 2x_1^2 + 1 = 4x_1 + 2x_1$
+
+$0 = 2x_1^2 + 2x_1 - 1$
+
+$0 = x_1^2 + x_1 - \frac{1}{2}$
+
+$x_1 = \frac{-1 \pm- \sqrt(3)}{2}$
+
+$x_2 = -x_1 - 1 = \frac{-1 \mp \sqrt(3)}{2}$
+
+
+```{r echo=FALSE}
+f <- function(x) x^2 + 1
+fp <- function(x) 2*x
+g <- function(x) -x^2 - 2*x - 1
+gp <- function(x) -2*x - 2
+p <- ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  scale_x_continuous(breaks = seq(-5, 3), limits = c(-5, 4))
+
+delta <- 3
+
+x1 <- (-1 + sqrt(3))/2
+x2 <- -x1 - 1
+pts1 <- data.frame(x = c(x1, x2), y = c(f(x1), g(x2)))
+m <- fp(x1)
+line1 <- data.frame(x = c(x2 - delta, x2, x1, x1 + delta), y = c(g(x2) - m * delta, g(x2), f(x1), f(x1) + m * delta))
+
+x1 <- (-1 - sqrt(3))/2
+x2 <- -x1 - 1
+pts2 <- data.frame(x = c(x2, x1), y = c(g(x2), f(x1)))
+m <- fp(x1)
+line2 <- data.frame(x = c(x1 - delta, x1, x2, x2 + delta), y = c(f(x1) - m * delta, f(x1), g(x2), g(x2) + m * delta))
+
+p + stat_function(fun=f) + stat_function(fun=g) +
+  geom_line(data=line1, aes(x=x, y=y)) +
+  geom_line(data=line2, aes(x=x, y=y)) +
+  geom_point(data=pts1, aes(x=x, y=y)) +
+  geom_point(data=pts2, aes(x=x, y=y))
+  
+
+```
