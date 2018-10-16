@@ -63,13 +63,13 @@ x1 <- (-1 + sqrt(3))/2
 x2 <- -x1 - 1
 pts1 <- data.frame(x = c(x1, x2), y = c(f(x1), g(x2)))
 m <- fp(x1)
-line1 <- data.frame(x = c(x2 - delta, x2, x1, x1 + delta), y = c(g(x2) - m * delta, g(x2), f(x1), f(x1) + m * delta))
+line1 <- data.frame(x = c(x2 - delta, x1 + delta), y = c(g(x2) - m * delta, f(x1) + m * delta))
 
 x1 <- (-1 - sqrt(3))/2
 x2 <- -x1 - 1
 pts2 <- data.frame(x = c(x2, x1), y = c(g(x2), f(x1)))
 m <- fp(x1)
-line2 <- data.frame(x = c(x1 - delta, x1, x2, x2 + delta), y = c(f(x1) - m * delta, f(x1), g(x2), g(x2) + m * delta))
+line2 <- data.frame(x = c(x1 - delta, x2 + delta), y = c(f(x1) - m * delta, g(x2) + m * delta))
 
 p + stat_function(fun=f) + stat_function(fun=g) +
   geom_line(data=line1, aes(x=x, y=y)) +
@@ -111,13 +111,13 @@ x1 <- -1/6 + sqrt(3/2)
 x2 <- -(2*x1 + 1)/4
 pts1 <- data.frame(x = c(x1, x2), y = c(f(x1), g(x2)))
 m <- fp(x1)
-line1 <- data.frame(x = c(x2 - delta, x2, x1, x1 + delta), y = c(g(x2) - m * delta, g(x2), f(x1), f(x1) + m * delta))
+line1 <- data.frame(x = c(x2 - delta, x1 + delta), y = c(g(x2) - m * delta, f(x1) + m * delta))
 
 x1 <- -1/6 - sqrt(3/2)
 x2 <- -(2*x1 + 1)/4
 pts2 <- data.frame(x = c(x2, x1), y = c(g(x2), f(x1)))
 m <- fp(x1)
-line2 <- data.frame(x = c(x1 - delta, x1, x2, x2 + delta), y = c(f(x1) - m * delta, f(x1), g(x2), g(x2) + m * delta))
+line2 <- data.frame(x = c(x1 - delta, x2 + delta), y = c(f(x1) - m * delta, g(x2) + m * delta))
 
 p + stat_function(fun=f) + stat_function(fun=g) +
   geom_line(data=line1, aes(x=x, y=y)) +
