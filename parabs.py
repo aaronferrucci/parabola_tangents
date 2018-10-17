@@ -11,7 +11,22 @@ x2s[0].subs(x1, x1s[0])
 x2s[0].subs(x1, x1s[1])
 
 # print out x components of pts1 in R-evaluable syntax
-print "pts1.x = c(" + str(x1s[0]), ", ", str(x2s[0].subs(x1, x1s[0])), ")"
+x1_val = x1s[0]
+x2_val = x2s[0].subs(x1, x1s[0])
+y1_val = f.subs(x, x1_val)
+y2_val = g.subs(x, x2_val)
+print "pts1 <- data.frame(x=c(%s, %s), y=c(%s, %s))" % (str(x1_val), str(x2_val), str(y1_val), str(y2_val))
 
 m = df.subs(x, x1s[0])
 delta = 3
+
+# line1 <- data.frame(x = c(x2 - delta, x1 + delta), y = c(g(x2) - m * delta, f(x1) + m * delta))
+print "line1 <- data.frame(x = c(%s, %s), y = c(%s, %s))" % (str(x2_val - delta), str(x1_val + delta), str(y2_val - m * delta), str(y1_val + m * delta))
+
+m = df.subs(x, x1s[1])
+x1_val = x1s[1]
+x2_val = x2s[0].subs(x1, x1s[1])
+y1_val = g.subs(x, x2_val)
+y2_val = f.subs(x, x1_val)
+print "pts2 <- data.frame(x=c(%s, %s), y=c(%s, %s))" % (str(x2_val), str(x1_val), str(y1_val), str(y2_val))
+print "line2 <- data.frame(x = c(%s, %s), y = c(%s, %s))" % (str(x1_val - delta), str(x2_val + delta), str(y2_val - m * delta), str(y1_val + m * delta))

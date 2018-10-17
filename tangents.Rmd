@@ -61,15 +61,19 @@ delta <- 3
 
 x1 <- (-1 + sqrt(3))/2
 x2 <- -x1 - 1
-pts1 <- data.frame(x = c(x1, x2), y = c(f(x1), g(x2)))
-m <- fp(x1)
-line1 <- data.frame(x = c(x2 - delta, x1 + delta), y = c(g(x2) - m * delta, f(x1) + m * delta))
+
+# to be produced by sympy:
+# m <- fp(x1)
+# pts1 <- data.frame(x = c(x1, x2), y = c(f(x1), g(x2)))
+# line1 <- data.frame(x = c(x2 - delta, x1 + delta), y = c(g(x2) - m * delta, f(x1) + m * delta))
 
 x1 <- (-1 - sqrt(3))/2
 x2 <- -x1 - 1
-pts2 <- data.frame(x = c(x2, x1), y = c(g(x2), f(x1)))
-m <- fp(x1)
-line2 <- data.frame(x = c(x1 - delta, x2 + delta), y = c(f(x1) - m * delta, g(x2) + m * delta))
+
+# to be produced by sympy:
+# m <- fp(x1)
+# pts2 <- data.frame(x = c(x2, x1), y = c(g(x2), f(x1)))
+# line2 <- data.frame(x = c(x1 - delta, x2 + delta), y = c(f(x1) - m * delta, g(x2) + m * delta))
 
 p + stat_function(fun=f) + stat_function(fun=g) +
   geom_line(data=line1, aes(x=x, y=y)) +
