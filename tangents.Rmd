@@ -58,7 +58,13 @@ p <- ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
   scale_x_continuous(breaks = seq(-5, 3), limits = c(-5, 4))
 
 # grab the output of parabs.py, eval it.
-eval(parse(text=system("python parabs.py", intern=T)))
+a0 <- 1
+b0 <- 0
+c0 <- 1
+a1 <- -1
+b1 <- -2
+c1 <- -1
+eval(parse(text=system(sprintf("python parabs.py %s %s %s %s %s %s", a0, b0, c0, a1, b1, c1), intern=T)))
 
 p + stat_function(fun=f) + stat_function(fun=g) +
   geom_point(data=pts1, aes(x=x, y=y), color="green") +
