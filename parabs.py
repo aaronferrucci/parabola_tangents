@@ -1,8 +1,12 @@
 from sympy import *
 # init_printing(use_unicode=True)
+# To do: command line input
+a0, b0, c0 = (1, 0, 1)
+a1, b1, c1 = (-1, -2, -1)
+
 x, x1, x2 = symbols('x x1 x2')
-f = x**2 + 1
-g = -x**2 - 2*x - 1
+f = a0*x**2 + b0*x + c0
+g = a1*x**2 + b1*x + c1
 df = diff(f, x)
 dg = diff(g, x)
 x2s = solve(df.subs(x, x1) - dg.subs(x, x2), x2)
@@ -10,6 +14,8 @@ x1s = solve((f.subs(x, x1) - g.subs(x, x2s[0])) / (x1 - x2s[0]) - df.subs(x, x1)
 
 delta = 3
 print "# produced by parabs.py, sympy"
+print "# f: %s" % str(f)
+print "# g: %s" % str(g)
 for i in range(0, len(x1s)):
     # print pts<i>, line<i> in R-evaluable syntax
     x1_val = x1s[i]
