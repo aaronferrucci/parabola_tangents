@@ -1,8 +1,13 @@
 from sympy import *
+import sys
+
+try:
+    (a0, b0, c0, a1, b1, c1) = [ float(arg) for arg in sys.argv[1:]]
+except:
+    print "Usage: %s <a0> <b0> <c0> <a1> <b1> <c1>" % sys.argv[0]
+    sys.exit(1)
+
 # init_printing(use_unicode=True)
-# To do: command line input
-a0, b0, c0 = (1, 0, 1)
-a1, b1, c1 = (-1, -2, -1)
 
 x, x1, x2 = symbols('x x1 x2')
 f = a0*x**2 + b0*x + c0
