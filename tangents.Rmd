@@ -50,20 +50,18 @@ $x_2 = -x_1 - 1 = \frac{-1 \mp \sqrt(3)}{2}$
 
 
 ```{r echo=FALSE}
-f <- function(x) x^2 + 1
-fp <- function(x) 2*x
-g <- function(x) -x^2 - 2*x - 1
-gp <- function(x) -2*x - 2
-p <- ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
-  scale_x_continuous(breaks = seq(-5, 3), limits = c(-5, 4))
-
-# grab the output of parabs.py, eval it.
 a0 <- 1
 b0 <- 0
 c0 <- 1
 a1 <- -1
 b1 <- -2
 c1 <- -1
+f <- function(x) a0*x^2 + b0*x + c0
+g <- function(x) a1*x^2 + b1*x + c1
+p <- ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  scale_x_continuous(breaks = seq(-5, 3), limits = c(-5, 4))
+
+# grab the output of parabs.py, eval it.
 eval(parse(text=system(sprintf("python parabs.py %s %s %s %s %s %s", a0, b0, c0, a1, b1, c1), intern=T)))
 
 p + stat_function(fun=f) + stat_function(fun=g) +
