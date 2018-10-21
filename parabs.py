@@ -21,6 +21,9 @@ delta = 3
 print "# produced by parabs.py, sympy"
 print "# f: %s" % str(f)
 print "# g: %s" % str(g)
+if len(x1s) == 0:
+    print "# no solutions"
+
 for i in range(0, len(x1s)):
     # print pts<i>, line<i> in R-evaluable syntax
     x1_val = x1s[i]
@@ -33,9 +36,14 @@ for i in range(0, len(x1s)):
     x2_val = x2s[0].subs(x1, x1_val)
 
     # 'x1' is left-most
-    x1_val, x2_val = min(x1_val, x2_val), max(x1_val, x2_val)
+    # when solutions are complex, 'min' fails with TypeError
+    try:
+        x1_val, x2_val = min(x1_val, x2_val), max(x1_val, x2_val)
+    except TypeError:
+        continue
 
     # y values are on f or g, depending on slope
+    # (questionable)
     if m < 0:
         y1_val = f.subs(x, x1_val)
         y2_val = g.subs(x, x2_val)
