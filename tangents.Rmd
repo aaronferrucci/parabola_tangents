@@ -50,6 +50,8 @@ $x_2 = -x_1 - 1 = \frac{-1 \mp \sqrt(3)}{2}$
 
 
 ```{r echo=FALSE}
+p <- ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  scale_x_continuous(breaks = seq(-5, 3), limits = c(-6, 5))
 a0 <- 1
 b0 <- 0
 c0 <- 1
@@ -58,17 +60,18 @@ b1 <- -2
 c1 <- -1
 f <- function(x) a0*x^2 + b0*x + c0
 g <- function(x) a1*x^2 + b1*x + c1
-p <- ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
-  scale_x_continuous(breaks = seq(-5, 3), limits = c(-5, 4))
 
 # grab the output of parabs.py, eval it.
-eval(parse(text=system(sprintf("python parabs.py %s %s %s %s %s %s", a0, b0, c0, a1, b1, c1), intern=T)))
-
-p + stat_function(fun=f) + stat_function(fun=g) +
-  geom_point(data=pts1, aes(x=x, y=y), color="green") +
-  geom_line(data=line1, aes(x=x, y=y), color="green") +
-  geom_point(data=pts2, aes(x=x, y=y), color="red") +
-  geom_line(data=line2, aes(x=x, y=y), color="red")
+parsed <- parse(text=system(sprintf("python parabs.py %s %s %s %s %s %s", a0, b0, c0, a1, b1, c1), intern=T))
+if (length(parsed) > 0) {
+  eval(parsed)
+  p1 <- p + stat_function(fun=f) + stat_function(fun=g) +
+    geom_point(data=pts1, aes(x=x, y=y), color="green") +
+    geom_line(data=line1, aes(x=x, y=y), color="green") +
+    geom_point(data=pts2, aes(x=x, y=y), color="red") +
+    geom_line(data=line2, aes(x=x, y=y), color="red")
+  print(p1)
+}
 
 ```
 
@@ -92,29 +95,24 @@ $x_2 = \frac{2x_1 + 1}{-4} = -\frac{1}{6} \mp \sqrt\frac{3}{8})$
 
 
 ```{r echo=FALSE}
-f <- function(x) x^2 + x
-fp <- function(x) 2*x + 1
-g <- function(x) -2*x^2 - 2
-gp <- function(x) -4*x
+a0 <- 1
+b0 <- 1
+c0 <- 0
+a1 <- -2
+b1 <- 0
+c1 <- -2
+f <- function(x) a0*x^2 + b0*x + c0
+g <- function(x) a1*x^2 + b1*x + c1
 p <- ggplot(data = data.frame(x = 0), mapping = aes(x = x))
-delta <- 3
-
-x1 <- -1/6 + sqrt(3/2)
-x2 <- -(2*x1 + 1)/4
-pts1 <- data.frame(x = c(x1, x2), y = c(f(x1), g(x2)))
-m <- fp(x1)
-line1 <- data.frame(x = c(x2 - delta, x1 + delta), y = c(g(x2) - m * delta, f(x1) + m * delta))
-
-x1 <- -1/6 - sqrt(3/2)
-x2 <- -(2*x1 + 1)/4
-pts2 <- data.frame(x = c(x2, x1), y = c(g(x2), f(x1)))
-m <- fp(x1)
-line2 <- data.frame(x = c(x1 - delta, x2 + delta), y = c(f(x1) - m * delta, g(x2) + m * delta))
-
-p + stat_function(fun=f) + stat_function(fun=g) +
-  geom_line(data=line1, aes(x=x, y=y)) +
-  geom_line(data=line2, aes(x=x, y=y)) +
-  geom_point(data=pts1, aes(x=x, y=y)) +
-  geom_point(data=pts2, aes(x=x, y=y))
+parsed <- parse(text=system(sprintf("python parabs.py %s %s %s %s %s %s", a0, b0, c0, a1, b1, c1), intern=T))
+if (length(parsed) > 0) {
+  eval(parsed)
+  p1 <- p + stat_function(fun=f) + stat_function(fun=g) +
+    geom_point(data=pts1, aes(x=x, y=y), color="green") +
+    geom_line(data=line1, aes(x=x, y=y), color="green") +
+    geom_point(data=pts2, aes(x=x, y=y), color="red") +
+    geom_line(data=line2, aes(x=x, y=y), color="red")
+  print(p1)
+}
 
 ```
