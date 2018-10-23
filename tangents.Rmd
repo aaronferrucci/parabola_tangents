@@ -114,5 +114,8 @@ if (length(parsed) > 0) {
     geom_line(data=line2, aes(x=x, y=y), color="red")
   print(p1)
 }
-
 ```
+
+General solution for $x_1$:
+$\left [ \frac{1}{2 a_{0} \left(a_{0} - a_{1}\right)} \left(a_{0} \left(- b_{0} + b_{1}\right) + \sqrt{a_{0} a_{1} \left(- 4 a_{0} c_{0} + 4 a_{0} c_{1} + 4 a_{1} c_{0} - 4 a_{1} c_{1} + b_{0}^{2} - 2 b_{0} b_{1} + b_{1}^{2}\right)}\right),
+\quad - \frac{1}{2 a_{0} \left(a_{0} - a_{1}\right)} \left(a_{0} b_{0} - a_{0} b_{1} + \sqrt{a_{0} a_{1} \left(- 4 a_{0} c_{0} + 4 a_{0} c_{1} + 4 a_{1} c_{0} - 4 a_{1} c_{1} + b_{0}^{2} - 2 b_{0} b_{1} + b_{1}^{2}\right)}\right)\right ]$
